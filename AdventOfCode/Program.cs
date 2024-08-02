@@ -6,6 +6,7 @@ namespace AdventOfCode
     {
         static void Main(string[] args)
         {
+            Application.Init();
             Application.Run<TerminalWindow>();
             Application.Shutdown();
         }
