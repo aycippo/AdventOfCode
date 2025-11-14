@@ -1,7 +1,7 @@
 pub(crate) mod year_2015;
 
-use crate::year_2015::day_1;
+use crate::year_2015::print_2015;
 
 fn main() {
-    day_1();
+    print_2015();
 }
