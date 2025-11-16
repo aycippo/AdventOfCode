@@ -1,4 +1,7 @@
-use std::str::{Chars, Lines, SplitN};
+use std::{
+    collections::HashSet,
+    str::{Chars, Lines, SplitN},
+};
 
 use crate::core::{
     cube_surface_area, get_input_data, print_challenge_footer, print_challenge_info,
@@ -73,8 +76,63 @@ fn day_2() {
 
 fn day_3() {
     let input_data: String = get_input_data(2015, 3);
+    let directions: Chars<'_> = input_data.chars();
+
+    let mut x: i32 = 0;
+    let mut y: i32 = 0;
+    let mut duo_x: i32 = 0;
+    let mut duo_y: i32 = 0;
+    let mut robo_x: i32 = 0;
+    let mut robo_y: i32 = 0;
+
+    let mut robo_turn: bool = false;
+
+    let mut solo_coordinate_set: HashSet<(i32, i32)> = HashSet::new();
+    let mut duo_coordinate_set: HashSet<(i32, i32)> = HashSet::new();
+
+    directions.for_each(|step: char| {
+        match step {
+            '^' => y += 1,
+            '>' => x += 1,
+            'v' => y -= 1,
+            '<' => x -= 1,
+            _ => println!("Invalid char input \"{}\"", step),
+        }
+
+        solo_coordinate_set.insert((x, y));
+
+        if robo_turn {
+            match step {
+                '^' => robo_y += 1,
+                '>' => robo_x += 1,
+                'v' => robo_y -= 1,
+                '<' => robo_x -= 1,
+                _ => println!("Invalid char input \"{}\"", step),
+            }
+
+            robo_turn = false;
+
+            duo_coordinate_set.insert((robo_x, robo_y));
+        } else {
+            match step {
+                '^' => duo_y += 1,
+                '>' => duo_x += 1,
+                'v' => duo_y -= 1,
+                '<' => duo_x -= 1,
+                _ => println!("Invalid char input \"{}\"", step),
+            }
+
+            robo_turn = true;
+
+            duo_coordinate_set.insert((duo_x, duo_y));
+        }
+    });
+
+    let solo_houses_visited: usize = solo_coordinate_set.len();
+    let duo_houses_visited: usize = duo_coordinate_set.len();
 
     print_challenge_info(2015, 3);
-
+    println!("\tHouses Visited Solo: {}", solo_houses_visited);
+    println!("\tHouses Visited w/ Robo Santa: {}", duo_houses_visited);
     print_challenge_footer();
 }
