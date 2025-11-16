@@ -27,11 +27,11 @@ pub(crate) fn get_input_data(year: u16, day: u8) -> String {
 }
 
 pub(crate) fn cube_surface_area(length: u32, width: u32, height: u32) -> u32 {
-    let a = length * width;
-    let b = width * height;
-    let c = length * height;
+    let a: u32 = length * width;
+    let b: u32 = width * height;
+    let c: u32 = length * height;
 
-    let smallest_side = a.min(b).min(c);
+    let smallest_side: u32 = a.min(b).min(c);
 
     2 * a + 2 * b + 2 * c + smallest_side
 }
