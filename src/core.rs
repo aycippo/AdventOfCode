@@ -1,13 +1,7 @@
 use std::{fs::File, io::Read};
 
 pub(crate) fn print_challenge_info(year: u16, day: u8) {
-    println!("Advent of Code");
-    println!("Year: {}", year);
-    println!("Day: {}", day);
-}
-
-pub(crate) fn print_challenge_footer() {
-    println!("\nChallenges completed by Aylah(aycippo)\n");
+    println!("Year: {} / Day: {}", year, day);
 }
 
 pub(crate) fn get_input_data(year: u16, day: u8) -> String {

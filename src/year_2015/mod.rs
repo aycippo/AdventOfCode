@@ -3,14 +3,16 @@ use std::{
     str::{Chars, Lines, SplitN},
 };
 
-use crate::core::{
-    cube_surface_area, get_input_data, print_challenge_footer, print_challenge_info,
-};
+use hex_literal::hex;
+use md5::{Digest, Md5};
+
+use crate::core::{cube_surface_area, get_input_data, print_challenge_info};
 
 pub(crate) fn print_2015() {
     day_1();
     day_2();
     day_3();
+    day_4();
 }
 
 fn day_1() {
@@ -39,7 +41,6 @@ fn day_1() {
     print_challenge_info(2015, 1);
     println!("\tFinal Floor: {}", floor);
     println!("\tSteps to Basement: {}", steps_to_basement);
-    print_challenge_footer();
 }
 
 fn day_2() {
@@ -71,7 +72,6 @@ fn day_2() {
     print_challenge_info(2015, 2);
     println!("\tSurface Area of All Presents: {}", total_area);
     println!("\tTotal Feet of Ribbon: {}", total_ribbon);
-    print_challenge_footer();
 }
 
 fn day_3() {
@@ -134,5 +134,25 @@ fn day_3() {
     print_challenge_info(2015, 3);
     println!("\tHouses Visited Solo: {}", solo_houses_visited);
     println!("\tHouses Visited w/ Robo Santa: {}", duo_houses_visited);
-    print_challenge_footer();
+}
+
+fn day_4() {
+    let mut hasher = Md5::new();
+
+    let secret: &str = "pqrstuv";
+
+    let number: u16 = 0;
+    let number_string: String = number.to_string();
+
+    let combo: String = format!("{}{}", secret, number_string);
+    let combo_bytes: &[u8] = combo.as_bytes();
+
+    hasher.update(b"pqrstuv1048970");
+
+    let result = hasher.finalize();
+
+    // let result = hasher.finalize().starts_with(&[0, 0]);
+
+    println!("{:?}", result);
+    println!("{:?}", hex!("abcdef609043"))
 }
